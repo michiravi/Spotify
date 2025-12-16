@@ -430,8 +430,30 @@
             sidebar.classList.toggle('active');
             document.body.classList.toggle('sidebar-open');
         });
+
+        const tracks = document.querySelectorAll(".music");
+
+    tracks.forEach((track, index) => {
+        track.addEventListener("ended", () => {
+            const nextTrack = tracks[index + 1];
+            if (nextTrack) {
+                nextTrack.play();
+            }
+        });
+
+        // opzionale: ferma le altre canzoni quando ne parte una
+        track.addEventListener("play", () => {
+            tracks.forEach(t => {
+                if (t !== track) {
+                    t.pause();
+                    t.currentTime = 0;
+                }
+            });
+        });
+    });
     </script>
 </body>
 
 </html>
+
 
